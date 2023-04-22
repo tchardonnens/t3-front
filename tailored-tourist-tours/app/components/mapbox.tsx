@@ -4,12 +4,12 @@ import Map, {
 } from "react-map-gl";
 
 export default function MapboxMap() {
-  const mapboxAccessToken = process.env.MAPBOX_ACCESS_TOKEN
+
   return (
 
     <div>
       <Map
-        mapboxAccessToken="pk.eyJ1IjoidG9tNzgiLCJhIjoiY2xnbTkwYnQ0MDNkbzNsb2V3d3hvd3Q2diJ9.efwRWl4ud5nylL_H3kuhIQ"
+        mapboxAccessToken={process.env.MAPBOX_ACCESS_TOKEN}
         initialViewState={{
           longitude: 2.33,
           latitude: 48.86,

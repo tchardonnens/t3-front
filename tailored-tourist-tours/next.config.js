@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+require('dotenv').config();
+
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -12,6 +14,9 @@ const nextConfig = {
     }
 
     return config;
+  },
+  env: {
+    MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
   }
 }
 
