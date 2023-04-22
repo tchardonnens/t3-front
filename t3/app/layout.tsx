@@ -19,7 +19,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta property='og:title' content={metadata.title} />
         <meta property='og:description' content={metadata.description} />
-        <meta property='og:url' content='https://tailoredtouristtours.vercel.app/' />
+        <meta property='og:url' content='https://map.verycurious.xyz/' />
         <title>{metadata.title}</title>
       </head>
       <body>{children}</body>
