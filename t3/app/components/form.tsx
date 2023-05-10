@@ -2,7 +2,7 @@ export default function Form() {
   return (
     // TODO: fill the action url 
     <form action="" method="post" className="w-full">
-      <div className="flex flex-col md:flex-row lg:flex-row items-center justify-evenly gap-8 sm:gap-0 w-full h-full">
+      <div className="flex flex-col md:flex-row items-center justify-evenly gap-8 md:gap-0 w-full h-full">
         <div className="flex flex-col items-center justify-center">
           <label className="text-lg mb-2" htmlFor="location">Location 📍</label>
           <input className="w-40 p-1 rounded-lg bg-slate-200 dark:bg-black outline outline-black dark:outline-white" type="text" id="location" name="location" required />
