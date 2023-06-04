@@ -21,7 +21,7 @@ export default function MapboxMap() {
           borderRadius: "15px",
           border: "1px solid black",
         }}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
+        mapStyle="mapbox://styles/tom78/clhhr8vh601ad01qt34ixevgu"
       >
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
