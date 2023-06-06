@@ -84,11 +84,11 @@ export default function Form() {
 
           <Tabs>
             <TabList>
-              {data.TSP.map((_, index) => (
+              {data.TSP.map((day, index) => day && day.length > 0 && (
                 <Tab key={index}>Day {index + 1}</Tab>
               ))}
             </TabList>
-            {data.TSP.map((day, index) => (
+            {data.TSP.map((day, index) => day && day.length > 0 && (
               <TabPanel key={index}>
                 <div className="flex flex-row" style={{ width: '80vw', margin: '0 auto' }}>
                   <div className="flex flex-col mr-20">
@@ -97,10 +97,10 @@ export default function Form() {
                       <div key={museum.id}>
                         <h3>🏛️ {museum.name} </h3>
                         <p>📍 Address: {museum.address}, {museum.city}, {museum.department}, {museum.region}</p>
-                        <p>🧭 Latitude: {museum.lat || 'Not available'}</p>
-                        <p>🧭 Longitude: {museum.lng || 'Not available'}</p>
-                        {/* <p>🌍 Website: <a href={museum.website} target="_blank" rel="noopener noreferrer">{museum.website}</a></p> */}
-                        {/* <p>📝 Description: {museum.description || 'Not available'}</p> */}
+                        {/* <p>🧭 Latitude: {museum.lat || 'Not available'}</p>
+                        <p>🧭 Longitude: {museum.lng || 'Not available'}</p> */}
+                        <p>🌍 Website: <a href={museum.website} target="_blank" rel="noopener noreferrer">{museum.website}</a></p>
+                        <p>📝 Description: {museum.description || 'Not available'}</p>
                         <br />
                       </div>
                     ))}

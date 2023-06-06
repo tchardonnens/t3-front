@@ -1,11 +1,11 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, {
-  GeolocateControl, Layer, Source,
+  GeolocateControl, Layer, Marker, Source,
 } from "react-map-gl";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function MapboxMap({ points }) {
+export default function MapboxMap({ points }: any) {
   const [routeGeoJSON, setRouteGeoJSON] = useState(null);
 
   // Fetch the directions when the points change.
@@ -14,7 +14,7 @@ export default function MapboxMap({ points }) {
       if (points.length < 2) return;
 
       const coordinates = points.map((p: { lng: any; lat: any; }) => `${p.lng},${p.lat}`).join(';');
-      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates}?geometries=geojson&access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
+      const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?geometries=geojson&access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
       console.log(url);
       try {
         const response = await axios.get(url);
@@ -42,7 +42,12 @@ export default function MapboxMap({ points }) {
           borderRadius: "15px",
           border: "1px solid black",
         }}
-        mapStyle="mapbox://styles/tom78/clhhr8vh601ad01qt34ixevgu"
+        // color
+        mapStyle="mapbox://styles/tom78/clikblx6900g801r06zf71lyi"
+      // dark
+      //mapStyle="mapbox://styles/tom78/clikbwaoj00ga01r0bjcxcnzd"
+      // light
+      // mapStyle="mapbox://styles/tom78/clhhr8vh601ad01qt34ixevgu"
       >
         {routeGeoJSON && (
           <Source id="route" type="geojson" data={routeGeoJSON}>
@@ -55,12 +60,19 @@ export default function MapboxMap({ points }) {
                 'line-cap': 'round'
               }}
               paint={{
-                'line-color': '#1db7dd',
-                'line-width': 8
+                'line-color': '#8941d1',
+                'line-width': 5
               }}
             />
           </Source>
         )}
+        {points.map((point: any, index: any) => (
+          <Marker key={index} longitude={point.lng} latitude={point.lat}>
+            <div style={{ color: 'blue', background: 'white', padding: '2px 5px', borderRadius: '50%' }}>
+              {index + 1}
+            </div>
+          </Marker>
+        ))}
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
