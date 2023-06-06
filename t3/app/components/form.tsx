@@ -5,7 +5,7 @@ import { TripPlan } from "../types/trip-plan";
 import { PlaceType } from "../enums/place-type";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { useRouter } from 'next/router';
+import MapboxMap from "./mapbox";
 
 export default function Form() {
   const [location, setLocation] = useState('')
@@ -84,24 +84,32 @@ export default function Form() {
 
           <Tabs>
             <TabList>
-              {data.TSP.map((_, index) => (
+              {data.TSP.map((day, index) => day && day.length > 0 && (
                 <Tab key={index}>Day {index + 1}</Tab>
               ))}
             </TabList>
-            {data.TSP.map((day, index) => (
+            {data.TSP.map((day, index) => day && day.length > 0 && (
               <TabPanel key={index}>
-                <div className="day" style={{ width: '80vw', margin: '0 auto' }}>
-                  <h2>Day {index + 1}</h2>
-                  {day.map(museum => (
-                    <div key={museum.id} className="museum">
-                      <h3>🏛️ {museum.name} </h3>
-                      <p>🧭 Latitude: {museum.lat || 'Not available'}</p>
-                      <p>🧭 Longitude: {museum.lng || 'Not available'}</p>
-                      <p>🌍 Website: <a href={museum.website} target="_blank" rel="noopener noreferrer">{museum.website}</a></p>
-                      <p>📝 Description: {museum.description || 'Not available'}</p>
-                      <br />
-                    </div>
-                  ))}
+                <div className="flex flex-row" style={{ width: '80vw', margin: '0 auto' }}>
+                  <div className="flex flex-col mr-20">
+                    <h2>Day {index + 1}</h2>
+                    {day.map(museum => (
+                      <div key={museum.id}>
+                        <h3>🏛️ {museum.name} </h3>
+                        <p>📍 Address: {museum.address}, {museum.city}, {museum.department}, {museum.region}</p>
+                        {/* <p>🧭 Latitude: {museum.lat || 'Not available'}</p>
+                        <p>🧭 Longitude: {museum.lng || 'Not available'}</p> */}
+                        <p>🌍 Website: <a href={museum.website} target="_blank" rel="noopener noreferrer">{museum.website}</a></p>
+                        <p>📝 Description: {museum.description || 'Not available'}</p>
+                        <br />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col">
+                    <MapboxMap points={day} />
+                  </div>
+
                 </div>
               </TabPanel>
             ))}
