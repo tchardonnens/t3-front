@@ -29,17 +29,18 @@ export default function Form() {
   }
 
   const postParameters = async () => {
-    axios.post('http://127.0.0.1:8080/api/v1/tsp', {
+    axios.post('https://api.t3.verycurious.xyz/api/v1/tsp', {
       location: location,
       days: Number(days),
       types: types
     })
       .then(function (response) {
         console.log(response);
-        setData(response.data)
+        setData(response.data);
       })
       .catch(function (error) {
         console.log(error);
+        throw error;
       });
   }
 
