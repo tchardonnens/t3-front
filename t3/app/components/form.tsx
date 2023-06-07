@@ -23,25 +23,30 @@ export default function Form() {
       {
         loading: 'Searching best places to visit... ⏳',
         success: <b>We have a trip for you! 🥳</b>,
-        error: <b>Hmmm... Sorry we could not find anything 😣</b>,
+        error: <b>Hmmm... Sorry we could not find anything for the location {location} 😣</b>,
       }
     );
   }
 
   const postParameters = async () => {
-    axios.post('https://api.t3.verycurious.xyz/api/v1/tsp', {
-      location: location,
-      days: Number(days),
-      types: types
-    })
-      .then(function (response) {
-        console.log(response);
-        setData(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-        throw error;
+    if (!location || !days || !types) {
+      throw new Error('Missing data');
+    }
+
+    try {
+      const response = await axios.post('https://api.t3.verycurious.xyz/api/v1/tsp', {
+        location: location,
+        days: Number(days),
+        types: types
       });
+
+      console.log(response);
+      setData(response.data);
+
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   return (
