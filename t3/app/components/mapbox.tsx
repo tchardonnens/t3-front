@@ -37,7 +37,7 @@ export default function MapboxMap({ points }: any) {
           zoom: 12,
         }}
         style={{
-          width: "40vw",
+          width: "100%",
           height: "70vh",
           borderRadius: "15px",
           border: "1px solid black",
