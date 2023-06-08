@@ -62,7 +62,6 @@ export default function Form() {
     if (!Object.values(PlaceType).includes(types)) {
       throw new Error('Invalid type selected');
     }
-
     try {
       const response = await axios.post('https://api.t3.verycurious.xyz/api/v1/tsp', {
         location: location,
