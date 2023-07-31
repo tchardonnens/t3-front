@@ -16,7 +16,7 @@ export default function Form() {
 
   useEffect(() => {
     if (location.length > 2) { // Don't make request for very short query
-      axios.get('https://api.t3.verycurious.xyz/api/v1/locations', {
+      axios.get('https://api-t3.verycurious.xyz/api/v1/locations', {
         params: { q: location }
       }).then(response => {
         setSuggestions(response.data.locations || []);
@@ -63,7 +63,7 @@ export default function Form() {
       throw new Error('Invalid type selected');
     }
     try {
-      const response = await axios.post('https://api.t3.verycurious.xyz/api/v1/tsp', {
+      const response = await axios.post('https://api-t3.verycurious.xyz/api/v1/tsp', {
         location: location,
         days: Number(days),
         types: types
