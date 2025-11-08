@@ -1,9 +1,9 @@
+import axios from 'axios';
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useEffect, useState } from 'react';
 import Map, {
   GeolocateControl, Layer, Marker, Source,
-} from "react-map-gl";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+} from "react-map-gl/mapbox";
 
 export default function MapboxMap({ points }: any) {
   const [routeGeoJSON, setRouteGeoJSON] = useState(null);
@@ -11,10 +11,10 @@ export default function MapboxMap({ points }: any) {
   // Fetch the directions when the points change.
   useEffect(() => {
     const fetchDirections = async () => {
-      if (points.length < 2) return;
+      if (!points || points.length < 2) return;
 
       const coordinates = points.map((p: { lng: any; lat: any; }) => `${p.lng},${p.lat}`).join(';');
-      const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?geometries=geojson&access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
+      const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?geometries=geojson&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
       console.log(url);
       try {
         const response = await axios.get(url);
@@ -26,11 +26,16 @@ export default function MapboxMap({ points }: any) {
 
     fetchDirections();
   }, [points]);
-  return (
 
+  // Return early if no points are provided
+  if (!points || points.length === 0) {
+    return <div>No points to display on map</div>;
+  }
+
+  return (
     <div>
       <Map
-        mapboxAccessToken={process.env.MAPBOX_ACCESS_TOKEN}
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
         initialViewState={{
           longitude: points[0].lng,
           latitude: points[0].lat,
@@ -42,12 +47,7 @@ export default function MapboxMap({ points }: any) {
           borderRadius: "15px",
           border: "1px solid black",
         }}
-        // color
         mapStyle="mapbox://styles/tom78/clikblx6900g801r06zf71lyi"
-      // dark
-      //mapStyle="mapbox://styles/tom78/clikbwaoj00ga01r0bjcxcnzd"
-      // light
-      // mapStyle="mapbox://styles/tom78/clhhr8vh601ad01qt34ixevgu"
       >
         {routeGeoJSON && (
           <Source id="route" type="geojson" data={routeGeoJSON}>
@@ -76,7 +76,6 @@ export default function MapboxMap({ points }: any) {
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
-
         />
       </Map>
     </div>
